@@ -45,6 +45,7 @@ def controller(cc, name):
 
 
 if __name__ == "__main__":
+    rospy.init("turtlebot_html5", anonymous=False)
     host = "82.196.12.41"
     port = 80
     name = "test"
