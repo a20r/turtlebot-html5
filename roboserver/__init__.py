@@ -11,6 +11,7 @@ def run(host, port):
     """
 
     import pageserver
+    import restful
     import config
 
     config.app.run(host=host, port=int(port), debug=True)
