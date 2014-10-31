@@ -30,10 +30,7 @@ function orientationEventHandler(eventData) {
         zeroFB = tiltFB;
     }
 
-    // $("#test").html(tiltFB);
     postData(tiltLR, tiltFB, $("#name").html());
-
-    // do shit here
 }
 
 function postData(tiltLR, tiltFB, name) {
