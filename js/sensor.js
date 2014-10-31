@@ -22,6 +22,19 @@ function orientationEventHandler(eventData) {
     var dir = eventData.alpha;
 
     $("#test").html(tiltFB);
+    postData(tiltLR, tiltFB, "test");
 
     // do shit here
 }
+
+function postData(tiltLR, tiltFB, name) {
+    $.ajax({
+        type: "POST",
+        url: "/vel/" + name,
+        data: {
+            tilt_lr: tiltLR,
+            tilt_fb: tiltFB
+        }
+    });
+}
+
