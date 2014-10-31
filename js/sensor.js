@@ -29,7 +29,7 @@ function orientationEventHandler(eventData) {
         zeroFB = tiltFB;
     }
 
-    $("#test").html(tiltFB);
+    // $("#test").html(tiltFB);
     postData(tiltLR, tiltFB, "test");
 
     // do shit here
