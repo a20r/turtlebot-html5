@@ -29,8 +29,8 @@ def post_velocity(name):
     if tilt_fb < min_tilt:
         tilt_fb = min_tilt
 
-    vel_x = tilt_fb / max_tilt
-    vel_y = tilt_lr / max_tilt
+    vel_x = tilt_lr / max_tilt
+    vel_y = tilt_fb / max_tilt
 
     config.velocity_store[name] = (vel_x, vel_y)
 
