@@ -14,8 +14,8 @@ def post_velocity(name):
     zero_lr = request.form["zero_lr"]
     zero_fb = request.form["zero_fb"]
 
-    tilt_lr = abs_tilt_lr - zero_lr
-    tilt_fb = abs_tilt_fb - zero_fb
+    tilt_lr = int(abs_tilt_lr) - int(zero_lr)
+    tilt_fb = int(abs_tilt_fb) - int(zero_fb)
 
     if tilt_lr > max_tilt:
         tilt_lr = max_tilt
