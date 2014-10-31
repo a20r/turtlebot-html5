@@ -48,6 +48,17 @@ function postData(tiltLR, tiltFB, name) {
                 zero_fb: zeroFB
             }
         });
+    } else {
+        $.ajax({
+            type: "POST",
+            url: "/vel/" + name,
+            data: {
+                tilt_lr: 0,
+                tilt_fb: 0,
+                zero_lr: 0,
+                zero_fb: 0
+            }
+        });
     }
 }
 
@@ -60,16 +71,6 @@ function stopButtonPressed() {
     if ($("#stopButton").html() == "Stop") {
         canControl = false;
         $("#stopButton").html("Start");
-        $.ajax({
-            type: "POST",
-            url: "/vel/" + name,
-            data: {
-                tilt_lr: 0,
-                tilt_fb: 0,
-                zero_lr: 0,
-                zero_fb: 0
-            }
-        });
     } else if ($("#stopButton").html() == "Start") {
         canControl = true;
         $("#stopButton").html("Stop");
