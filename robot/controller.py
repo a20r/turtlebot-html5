@@ -38,7 +38,7 @@ def controller(cc, name):
 
         move_cmd = Twist()
         vel = cc.get_velocity(name)
-        move_cmd.linear.x = vel["x"]
+        move_cmd.linear.x = 0.7 * vel["x"]
         move_cmd.angular.z = vel["y"]
         cmd_vel.publish(move_cmd)
         r.sleep()
