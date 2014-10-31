@@ -1,4 +1,7 @@
 
+var zeroLR = null;
+var zeroFB = null;
+
 window.onload = function() {
   getSensorData();
 }
@@ -21,6 +24,11 @@ function orientationEventHandler(eventData) {
     var tiltFB = eventData.beta;
     var dir = eventData.alpha;
 
+    if (zeroLR == null || zeroFB == null) {
+        zeroLR = tiltLR;
+        zeroFB = tiltFB;
+    }
+
     $("#test").html(tiltFB);
     postData(tiltLR, tiltFB, "test");
 
@@ -33,7 +41,9 @@ function postData(tiltLR, tiltFB, name) {
         url: "/vel/" + name,
         data: {
             tilt_lr: tiltLR,
-            tilt_fb: tiltFB
+            tilt_fb: tiltFB,
+            zero_lr: zeroLR,
+            zero_fb: zeroFB
         }
     });
 }
