@@ -1,5 +1,5 @@
 import config
-from flask import Response, render_template
+from flask import Response, render_template, request
 
 MIME_DICT = {
     "js": "text/javascript",
@@ -21,3 +21,8 @@ def get_static(file_type, filename):
 @config.app.route("/<filename>", methods=["GET"])
 def get_html(filename):
     return render_template(filename)
+
+
+@config.app.route("/controller/<name>", methods=["GET"])
+def get_controller_page(name):
+    return render_template("controller.html", name=name)
