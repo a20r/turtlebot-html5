@@ -1,6 +1,7 @@
 
 var zeroLR = null;
 var zeroFB = null;
+var canControl = false;
 
 window.onload = function() {
   getSensorData();
@@ -30,21 +31,48 @@ function orientationEventHandler(eventData) {
     }
 
     // $("#test").html(tiltFB);
-    postData(tiltLR, tiltFB, "test");
+    postData(tiltLR, tiltFB, $("#name").html());
 
     // do shit here
 }
 
 function postData(tiltLR, tiltFB, name) {
-    $.ajax({
-        type: "POST",
-        url: "/vel/" + name,
-        data: {
-            tilt_lr: tiltLR,
-            tilt_fb: tiltFB,
-            zero_lr: zeroLR,
-            zero_fb: zeroFB
-        }
-    });
+    if (canControl) {
+        $.ajax({
+            type: "POST",
+            url: "/vel/" + name,
+            data: {
+                tilt_lr: tiltLR,
+                tilt_fb: tiltFB,
+                zero_lr: zeroLR,
+                zero_fb: zeroFB
+            }
+        });
+    }
+}
+
+function calibrateButtonPressed() {
+    zeroLR = null;
+    zeroFB = null;
+}
+
+function stopButtonPressed() {
+    if ($("#stopButton").html() == "Stop") {
+        canControl = false;
+        $("#stopButton").html("Start");
+        $.ajax({
+            type: "POST",
+            url: "/vel/" + name,
+            data: {
+                tilt_lr: 0,
+                tilt_fb: 0,
+                zero_lr: 0,
+                zero_fb: 0
+            }
+        });
+    } else if ($("#stopButton").html() == "Start") {
+        canControl = true;
+        $("#stopButton").html("Stop");
+    }
 }
 
