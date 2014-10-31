@@ -41,6 +41,6 @@ def post_velocity(name):
 def get_velocity(name):
     if name in config.velocity_store.keys():
         vel = config.velocity_store[name]
-        return jsonify(vel_x=vel[0], vel_y=vel[1])
+        return jsonify(x=vel[0], y=vel[1])
     else:
-        return jsonify(vel_x=0, vel_y=0)
+        return jsonify(x=0, y=0)
