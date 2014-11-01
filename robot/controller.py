@@ -3,6 +3,8 @@ import urllib2
 import rospy
 from geometry_msgs.msg import Twist
 import json
+import freenect
+import cv2
 
 
 is_shutdown = False
@@ -35,6 +37,9 @@ def controller(cc, name):
         if is_shutdown:
             cmd_vel.publish(Twist())
             break
+
+        frame, _ = freenect.sync_get_video()
+        print cv2.resize(frame, (300, 200))
 
         move_cmd = Twist()
         vel = cc.get_velocity(name)
