@@ -38,9 +38,6 @@ def controller(cc, name):
             cmd_vel.publish(Twist())
             break
 
-        frame, _ = freenect.sync_get_video()
-        print cv2.resize(frame, (300, 200))
-
         move_cmd = Twist()
         vel = cc.get_velocity(name)
         move_cmd.linear.x = 0.7 * vel["x"]
