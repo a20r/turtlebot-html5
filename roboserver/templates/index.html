@@ -43,12 +43,12 @@
         </div>
 
         <script>
-            window.onload = function() {
-                $("form").submit(function(e) {
-                    e.preventDefault();//prevent the form from actually submitting
-                    window.location = "/controller/" + $("#name").val();
-                });
-            }
+            // window.onload = function() {
+            //     $("form").submit(function(e) {
+            //         e.preventDefault();//prevent the form from actually submitting
+            //         window.location = "/controller/" + $("#name").val();
+            //     });
+            // }
             function submitForm () {
                 window.location = "/controller/" + $("#name").val();
             }
