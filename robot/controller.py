@@ -3,8 +3,6 @@ import urllib2
 import rospy
 from geometry_msgs.msg import Twist
 import json
-import freenect
-import cv2
 
 
 is_shutdown = False
@@ -48,8 +46,8 @@ def controller(cc, name):
 
 if __name__ == "__main__":
     rospy.init_node("turtlebot_html5", anonymous=False)
-    host = "82.196.12.41"
-    port = 80
-    name = "test"
+    host = "wallar.me"
+    port = 8080
+    name = "pinesbot"
     cc = CommandCenter(host, port)
     controller(cc, name)
