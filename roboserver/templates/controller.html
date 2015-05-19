@@ -33,11 +33,11 @@
                 <div class="col-md-4">
                     <h1 id="name">{{ name }}</h1>
                     <div class="row">
-                        <button onclick="stopButtonPressed()" id="stopButton" style="width:100%;" class="btn btn-primary">Start</button>
+                        <button onclick="init()" id="initButton" style="width:100%;" class="btn btn-primary">Start</button>
                     </div> <br>
-                    <div class="row">
-                        <button onclick="calibrateButtonPressed()" id="calibrateButton" style="width:100%;" class="btn btn-primary">Calibrate</button>
-                    </div>
+                    <canvas id="canvas" width="600" height="600" style="border:solid black 1px;">
+                        Your browser does not support canvas element.
+                    </canvas>
                 </div>
             </div>
         </div>
