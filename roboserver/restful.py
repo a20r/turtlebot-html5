@@ -55,8 +55,8 @@ def post_say(name):
 
 @config.app.route("/say/<name>", methods=["GET"])
 def get_say(name):
-    if name in config.velocity_store.keys():
+    try:
         words = config.say_store[name]
         return jsonify(words=words)
-    else:
+    except KeyError:
         return jsonify(words="")
