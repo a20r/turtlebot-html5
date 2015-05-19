@@ -44,3 +44,19 @@ def get_velocity(name):
         return jsonify(x=vel[0], y=vel[1])
     else:
         return jsonify(x=0, y=0)
+
+
+@config.app.route("/say/<name>", methods=["POST"])
+def post_say(name):
+    words = request.form["words"]
+    config.say_store[name] = words
+    return 200
+
+
+@config.app.route("/say/<name>", methods=["GET"])
+def get_say(name):
+    if name in config.velocity_store.keys():
+        words = config.say_store[name]
+        return jsonify(words=words)
+    else:
+        return jsonify(words="")
