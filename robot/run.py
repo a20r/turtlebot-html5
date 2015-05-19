@@ -33,9 +33,9 @@ class CommandCenter(object):
     def execute_say(self, name):
         url = self.addr + "/say/" + name
         req = urllib2.urlopen(url)
-        words = json.loads(req.read())
+        words = json.loads(req.read())["words"]
         if len(words) > 0:
-            os.system("say {} &".format(words))
+            os.system("espeak -g 3 -v en '{}' &".format(words))
 
     def run(self, name):
         cmd_vel = rospy.Publisher('mobile_base/commands/velocity', Twist)
@@ -48,7 +48,7 @@ class CommandCenter(object):
 
             move_cmd = Twist()
             vel = self.get_velocity(name)
-            move_cmd.linear.x = 0.7 * vel["x"]
+            move_cmd.linear.x = 1.0 * vel["x"]
             move_cmd.angular.z = 1.5 * vel["y"]
             cmd_vel.publish(move_cmd)
             self.execute_say(name)
