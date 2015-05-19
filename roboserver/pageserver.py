@@ -1,6 +1,5 @@
 import config
-import uuid
-from flask import Response, render_template, redirect
+from flask import Response, render_template
 
 MIME_DICT = {
     "js": "text/javascript",
@@ -32,14 +31,3 @@ def get_index():
 @config.app.route("/controller/<name>", methods=["GET"])
 def get_controller_page(name):
     return render_template("controller.html", name=name)
-
-
-@config.app.route("/queue/<name>", methods=["GET"])
-def get_queue_page(name):
-    if not name in config.controller_queue:
-        config.controller_queue[name] = list()
-        return redirect("/controller/" + name)
-    elif len(config.controller_queue) > 0:
-        return render_template("queue.html", name=name, id=uuid.uuid4())
-    elif len(config.controller_queue) == 0:
-        return redirect("/controller/" + name)

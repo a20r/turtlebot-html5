@@ -1,5 +1,6 @@
 
 import rospy
+import os
 import urllib2
 from geometry_msgs.msg import Twist
 import json
@@ -29,6 +30,12 @@ class CommandCenter(object):
         vel = json.loads(req.read())
         return vel
 
+    def execute_say(self, name):
+        url = self.addr + "/say/" + name
+        req = urllib2.urlopen(url)
+        words = json.loads(req.read())
+        os.system("say {} &".format(words))
+
     def run(self, name):
         cmd_vel = rospy.Publisher('mobile_base/commands/velocity', Twist)
         r = rospy.Rate(10)
@@ -43,6 +50,7 @@ class CommandCenter(object):
             move_cmd.linear.x = 0.7 * vel["x"]
             move_cmd.angular.z = 1.5 * vel["y"]
             cmd_vel.publish(move_cmd)
+            self.execute_say(name)
             r.sleep()
 
 
