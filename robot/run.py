@@ -34,7 +34,8 @@ class CommandCenter(object):
         url = self.addr + "/say/" + name
         req = urllib2.urlopen(url)
         words = json.loads(req.read())
-        os.system("say {} &".format(words))
+        if len(words) > 0:
+            os.system("say {} &".format(words))
 
     def run(self, name):
         cmd_vel = rospy.Publisher('mobile_base/commands/velocity', Twist)

@@ -40,6 +40,7 @@
             window.onload = function() {
                 $("#say").click(function(e) {
                     $.ajax({
+                        type: "POST",
                         url: "/say/" + $("#name").html(),
                         data: {words: $("#words").val()}
                     })
