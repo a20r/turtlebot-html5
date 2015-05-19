@@ -23,6 +23,11 @@ def get_html(filename):
     return render_template(filename)
 
 
+@config.app.route("/sayer/<name>", methods=["GET"])
+def get_sayer(name):
+    return render_template("sayer.html", name=name)
+
+
 @config.app.route("/", methods=["GET"])
 def get_index():
     return render_template("index.html")
