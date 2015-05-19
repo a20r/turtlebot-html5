@@ -5,10 +5,10 @@ var initx;
 var inity;
 var newx;
 var newy;
-var radiusstart = 10;
-var radiusmove = 4;
-var scalex = 1;
-var scaley = 1;
+var radiusstart = 50;
+var radiusmove = 20;
+var scalex = 0.1;
+var scaley = 0.1; 
 
 function init() {
   var el = document.getElementsByTagName("canvas")[0];
@@ -17,14 +17,23 @@ function init() {
   el.addEventListener("touchcancel", handleEnd, false);
   el.addEventListener("touchleave", handleEnd, false);
   el.addEventListener("touchmove", handleMove, false);
-  log("initialized.");
-  $("#initButton").hide;
+  window.addEventListener('resize', resizeCanvas, false);
+  resizeCanvas();
+  $("#initButton").hide();
 }
+
+function resizeCanvas() {
+    var canvas = document.getElementById('canvas');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
 
 function draw() {
     var el = document.getElementsByTagName("canvas")[0];
     var ctx = el.getContext("2d");
-    ctx.clearRect(0,0,canvas.width,,canvas.height);
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
     if (touching) {
         ctx.beginPath();
         ctx.arc(initx, inity, radiusstart, 0,2*Math.PI, false);
@@ -39,14 +48,16 @@ function draw() {
 
 function handleStart(evt) {
   evt.preventDefault();
-  log("touchstart.");
   var touches = evt.changedTouches;
 
   if(touches.length == 1 && !touching) {
     touchid = touches[0].identifier;
     initx = touches[0].pageX;
     inity = touches[0].pageY;
+    newx = initx;
+    newy = inity;
     postData(0,0,$("#name").html());
+    touching = true;
   }
   draw();
 }
@@ -61,8 +72,7 @@ function handleMove(evt) {
         if (touches[i].identifier == touchid) {
             newx = touches[i].pageX;
             newy = touches[i].pageY;
-            postData((newx-initx)*scalex,(newy-inity)*scaley,$("#name").html());
-            
+            postData((newx-initx)*scalex,(newy-inity)*scaley,$("#name").html());    
         }
   }
   draw();
@@ -70,14 +80,13 @@ function handleMove(evt) {
 
 function handleEnd(evt) {
   evt.preventDefault();
-  log("touchend/touchleave.");
   var touches = evt.changedTouches;
 
   for (var i=0; i < touches.length; i++) {
         if (touches[i].identifier == touchid) {
         touchid = -1;
         touching = false;
-        postData(0,0,$("#name").html());
+        //postData(0,0,$("#name").html());
     }
   }
   draw();
@@ -91,7 +100,7 @@ function postData(tiltLR, tiltFB, name) {
             data: {
                 tilt_lr: tiltLR,
                 tilt_fb: tiltFB,
-                zero_lr: 0
+                zero_lr: 0,
                 zero_fb: 0
             }
         });
@@ -108,4 +117,3 @@ function postData(tiltLR, tiltFB, name) {
         });
     }
 }
-
